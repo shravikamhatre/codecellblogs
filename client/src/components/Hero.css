@@ -79,7 +79,7 @@
   padding: 5rem 0 0 2rem;
   pointer-events: none;
   user-select: none;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.952);
   font-family: var(--font-accent);
   white-space: pre-wrap;
   font-size: 0.75rem;
@@ -101,3 +101,9 @@
   }
 }
 
+.hero-content.container {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 80px;
+  /* key shift */
+}

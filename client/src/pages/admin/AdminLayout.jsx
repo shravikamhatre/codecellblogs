@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../lib/AuthContext';
+import { LogOut } from 'lucide-react';
 
 export default function AdminLayout() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!user) { navigate('/login', { replace: true }); return; }
+    if (user.role !== 'admin') { navigate('/portal', { replace: true }); return; }
+  }, [user, navigate]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -71,6 +80,23 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
+
+        {/* Logout */}
+        <button
+          onClick={() => { logout(); navigate('/login'); }}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: 'var(--text-muted)', fontFamily: 'var(--font-accent)', fontSize: '0.65rem',
+            letterSpacing: '0.2em', textTransform: 'uppercase',
+            transition: 'color 0.2s', padding: 0,
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--text-color)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+        >
+          <LogOut size={13} />
+          Sign out
+        </button>
       </header>
 
       {/* Page content */}

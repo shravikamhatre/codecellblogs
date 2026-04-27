@@ -113,164 +113,165 @@ function BlogPreview({ request, onClose, onAccept, onDecline }) {
         onClick={onClose}
         style={{
           position: 'fixed', inset: 0, zIndex: 40,
-          background: 'rgba(0,0,0,0.65)',
-          backdropFilter: 'blur(4px)',
-          WebkitBackdropFilter: 'blur(4px)',
-          animation: 'fadein 0.25s ease',
+          background: 'rgba(0,0,0,0.75)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          animation: 'fadein 0.3s ease',
         }}
       />
 
-      {/* Panel — slides in from right */}
+      {/* Panel — Centered Modal */}
       <div style={{
-        position: 'fixed', top: 0, right: 0, bottom: 0,
-        width: 'min(780px, 100vw)',
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
         zIndex: 50,
-        background: 'var(--bg-color)',
-        borderLeft: `1px solid ${T.border}`,
         display: 'flex', flexDirection: 'column',
-        animation: 'slidein 0.35s cubic-bezier(0.25,1,0.5,1)',
-        overflow: 'hidden',
+        alignItems: 'center',
+        overflowY: 'auto',
+        padding: '0 5vw 8rem',
+        animation: 'fadein 0.4s ease',
       }}>
 
-        {/* ── Panel top bar ── */}
+        {/* ── Focused Reader Container ── */}
         <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '1.25rem 2rem',
-          borderBottom: `1px solid ${T.border}`,
-          flexShrink: 0,
+          width: '100%',
+          maxWidth: '740px',
+          background: '#000000',
+          borderLeft: `1px solid ${T.border}`,
+          borderRight: `1px solid ${T.border}`,
+          position: 'relative',
+          minHeight: '100vh',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+
+          {/* ── Top bar (pinned to top) ── */}
+          <div style={{
+            position: 'sticky', top: 0, zIndex: 10,
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '1.25rem 2rem',
+            background: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            borderBottom: `1px solid ${T.border}`,
+          }}>
             <button
               onClick={onClose}
               style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: T.muted, fontFamily: T.fontMono, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', transition: 'color 0.2s', padding: 0 }}
               onMouseEnter={e => e.currentTarget.style.color = T.text}
               onMouseLeave={e => e.currentTarget.style.color = T.muted}
             >
-              <ArrowLeft size={13} /> Close
+              <ArrowLeft size={13} /> Exit Preview
             </button>
-            <span style={{ width: '1px', height: '14px', background: T.border }} />
-            <span style={{ fontFamily: T.fontMono, fontSize: '0.65rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: T.muted }}>
-              Preview · Published view
+            <span style={{
+              fontFamily: T.fontMono, fontSize: '0.62rem', letterSpacing: '0.18em',
+              textTransform: 'uppercase', color: T.red,
+            }}>
+              Submission Review
             </span>
           </div>
-          <span style={{
-            fontFamily: T.fontMono, fontSize: '0.62rem', letterSpacing: '0.18em',
-            textTransform: 'uppercase', color: T.red,
-            border: `1px solid rgba(193,18,31,0.4)`,
-            borderRadius: '999px', padding: '0.25rem 0.8rem',
-          }}>
-            Pending Review
-          </span>
-        </div>
 
-        {/* ── Scrollable blog content ── */}
-        <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '6rem' }}>
+          {/* ── Article content ── */}
+          <div style={{ padding: '0 0 4rem' }}>
+            {/* Cover image */}
+            <div style={{
+              width: '100%', aspectRatio: '16/8',
+              background: patterns[patternIdx],
+              borderBottom: `1px solid ${T.border}`,
+            }} />
 
-          {/* Cover image */}
-          <div style={{
-            width: '100%', aspectRatio: '16/7',
-            background: patterns[patternIdx],
-            flexShrink: 0,
-          }} />
-
-          {/* Article body */}
-          <article style={{ padding: '3rem 2.5rem' }}>
-            {/* Meta */}
-            <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <span style={{ fontFamily: T.fontMono, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: T.red }}>
-                {request.category}
-              </span>
-              <span style={{ fontFamily: T.fontMono, fontSize: '0.68rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: T.muted }}>
-                {request.date}
-              </span>
-              <span style={{ fontFamily: T.fontMono, fontSize: '0.68rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: T.muted }}>
-                by {request.author}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 style={{
-              fontFamily: T.fontDisplay,
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              lineHeight: 1.08,
-              letterSpacing: '-0.03em',
-              margin: '0 0 1.5rem',
-              color: T.text,
-            }}>
-              {request.title}
-            </h1>
-
-            {/* Excerpt lead */}
-            <p style={{
-              fontFamily: T.fontDisplay,
-              fontSize: '1.15rem',
-              lineHeight: 1.65,
-              color: 'rgba(255,255,255,0.7)',
-              borderLeft: `2px solid ${T.red}`,
-              paddingLeft: '1.25rem',
-              marginBottom: '2rem',
-              fontStyle: 'italic',
-            }}>
-              {request.excerpt}
-            </p>
-
-            {/* Divider */}
-            <div style={{ height: '1px', background: T.border, margin: '2rem 0' }} />
-
-            {/* Body text */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              {BODY_LOREM.split('\n\n').map((para, i) => (
-                <p key={i} style={{
-                  fontFamily: T.fontBody,
-                  fontSize: '1rem',
-                  lineHeight: 1.85,
-                  color: 'rgba(255,255,255,0.65)',
-                }}>
-                  {para}
-                </p>
-              ))}
-            </div>
-
-            {/* Tags */}
-            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '2.5rem', flexWrap: 'wrap' }}>
-              {['Design', 'Editorial', 'Interfaces'].map(tag => (
-                <span key={tag} style={{
-                  fontFamily: T.fontMono, fontSize: '0.62rem', letterSpacing: '0.18em',
-                  textTransform: 'uppercase', color: T.muted,
-                  border: `1px solid ${T.border}`,
-                  borderRadius: '999px', padding: '0.3rem 0.85rem',
-                }}>
-                  {tag}
+            <article style={{ padding: '4rem 3rem' }}>
+              {/* Meta */}
+              <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', marginBottom: '1.5rem', justifyContent: 'center' }}>
+                <span style={{ fontFamily: T.fontMono, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: T.red }}>
+                  {request.category}
                 </span>
-              ))}
-            </div>
-          </article>
-        </div>
+                <span style={{ width: '4px', height: '4px', background: T.border, borderRadius: '50%' }} />
+                <span style={{ fontFamily: T.fontMono, fontSize: '0.68rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: T.muted }}>
+                  {request.author}
+                </span>
+              </div>
 
-        {/* ── Sticky action bar ── */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '1.25rem 2rem',
-          background: 'rgba(0,0,0,0.85)',
-          borderTop: `1px solid ${T.border}`,
-          backdropFilter: 'blur(14px)',
-          WebkitBackdropFilter: 'blur(14px)',
-        }}>
-          <span style={{ fontFamily: T.fontMono, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: T.muted }}>
-            Decision required
-          </span>
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <PillBtn onClick={onDecline} icon={<X size={12} />}>Decline</PillBtn>
-            <PillBtn red onClick={onAccept} icon={<Check size={12} />}>Publish</PillBtn>
+              {/* Title */}
+              <h1 style={{
+                fontFamily: T.fontDisplay,
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                lineHeight: 1,
+                letterSpacing: '-0.04em',
+                margin: '0 0 2.5rem',
+                color: T.text,
+                textAlign: 'center',
+              }}>
+                {request.title}
+              </h1>
+
+              {/* Excerpt lead */}
+              <p style={{
+                fontFamily: T.fontDisplay,
+                fontSize: '1.3rem',
+                lineHeight: 1.6,
+                color: 'rgba(255,255,255,0.85)',
+                marginBottom: '3.5rem',
+                textAlign: 'center',
+                fontStyle: 'italic',
+                maxWidth: '90%',
+                margin: '0 auto 3.5rem',
+              }}>
+                {request.excerpt}
+              </p>
+
+              {/* Divider */}
+              <div style={{ width: '40px', height: '1px', background: T.red, margin: '0 auto 3.5rem' }} />
+
+              {/* Body text — Wattpad style focus */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+                {BODY_LOREM.split('\n\n').map((para, i) => (
+                  <p key={i} style={{
+                    fontFamily: T.fontBody,
+                    fontSize: '1.12rem',
+                    lineHeight: 1.95,
+                    color: 'rgba(255,255,255,0.7)',
+                    letterSpacing: '0.01em',
+                  }}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+
+              {/* Tags */}
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {['Design', 'Editorial', 'Interfaces'].map(tag => (
+                  <span key={tag} style={{
+                    fontFamily: T.fontMono, fontSize: '0.62rem', letterSpacing: '0.18em',
+                    textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
+                    border: `1px solid ${T.border}`,
+                    borderRadius: '999px', padding: '0.35rem 1rem',
+                  }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          </div>
+
+          {/* ── Bottom action bar (fixed inside modal container) ── */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '1.25rem 2.5rem',
+            background: 'rgba(10,10,10,0.98)',
+            borderTop: `1px solid ${T.border}`,
+          }}>
+            <span style={{ fontFamily: T.fontMono, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: T.muted }}>
+              Review Decision
+            </span>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <PillBtn onClick={onDecline} icon={<X size={12} />}>Decline</PillBtn>
+              <PillBtn red onClick={onAccept} icon={<Check size={12} />}>Publish Piece</PillBtn>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Keyframe styles */}
       <style>{`
-        @keyframes fadein  { from { opacity: 0 } to { opacity: 1 } }
-        @keyframes slidein { from { transform: translateX(100%) } to { transform: translateX(0) } }
+        @keyframes fadein  { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
       `}</style>
     </>
   );

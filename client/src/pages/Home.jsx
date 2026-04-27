@@ -5,7 +5,7 @@ import Hero from '../components/Hero'
 const Home = () => {
   const navigate = useNavigate()
 
-  return <Hero onViewBlogs={() => navigate('/blogs')} />
+  return <Hero onBrowse={() => navigate('/blogs')} />
 }
 
 export default Home

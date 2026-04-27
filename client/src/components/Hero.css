@@ -1,46 +1,103 @@
 .hero-container {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: calc(100vh - 5rem);
   position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8rem 0 6rem;
+  overflow: hidden;
 }
 
 .hero-content {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
-}
-
-.hero-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  display: grid;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
-.hero-label {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 2rem;
-  letter-spacing: 0.05em;
-  color: var(--text-color);
-  margin-bottom: 1rem;
+.hero-eyebrow {
+  margin: 0;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-primary);
 }
 
-.font-saol {
+.hero-heading {
+  margin: 0;
   font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 6vw, 8rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  max-width: 12ch;
+}
+
+.hero-heading .accent,
+.hero-heading .italic {
+  font-family: var(--font-accent);
   font-style: italic;
 }
 
-.font-newedge {
+.hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+  color: var(--text-color);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.85rem;
+  font-family: var(--font-primary);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cta-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-ascii {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 5rem 0 0 2rem;
+  pointer-events: none;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.08);
   font-family: var(--font-accent);
+  white-space: pre-wrap;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    padding: 6rem 0 4rem;
+  }
+
+  .hero-heading {
+    font-size: clamp(2.75rem, 11vw, 4rem);
+  }
+
+  .hero-ascii {
+    padding-left: 1rem;
+    font-size: 0.65rem;
+  }
 }
 

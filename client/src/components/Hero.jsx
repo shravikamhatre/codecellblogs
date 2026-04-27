@@ -1,25 +1,49 @@
-import React from 'react';
-import AsciiInfinity from './AsciiInfinity';
-import MotionButton from './MotionButton';
-import './Hero.css';
+import React from 'react'
+import { ArrowUpRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import './Hero.css'
 
-const Hero = ({ onViewBlogs }) => {
+const asciiArt = [
+  ' .-""-.   .-""-.   .-""-.   .-""-.   .-""-.   .-""-.   .-""-.',
+  '/      \\ /      \\ /      \\ /      \\ /      \\ /      \\ /      \\',
+  '|  /\\  | |  /\\  | |  /\\  | |  /\\  | |  /\\  | |  /\\  | |  /\\  |',
+  '| /  \\ | | /  \\ | | /  \\ | | /  \\ | | /  \\ | | /  \\ | | /  \\ |',
+  '|/ /\\ \\| |/ /\\ \\| |/ /\\ \\| |/ /\\ \\| |/ /\\ \\| |/ /\\ \\|',
+  '|/____\\| |/____\\| |/____\\| |/____\\| |/____\\| |/____\\| |/____\\|',
+  '\\                                                              /',
+  ' \\  *  soft   quiet   editorial   minimal   structure   calm  /',
+  '  `-._                                                  _.-\'',
+  '        `-._                                    _.-\'',
+  '              `-._                      _.-\'',
+  '                    `-._          _.-\'',
+  '                         `-.__.-\'',
+].join('\n')
+
+const Hero = ({ onBrowse }) => {
   return (
-    <div className="hero-container">
-      <div className="hero-content">
-        <AsciiInfinity />
-        <div className="hero-bottom">
-          <p className="hero-label">
-            <span className="font-saol">code</span>
-            <span className="font-newedge">cell</span>
-          </p>
-          <div className="mt-8">
-            <MotionButton label="View Blogs" onClick={onViewBlogs} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <section className="hero-container">
+      <pre className="hero-ascii" aria-hidden="true">
+        {asciiArt}
+      </pre>
 
-export default Hero;
+      <div className="hero-content container">
+      
+        <h1 className="hero-heading">
+          changing the <span className="accent">world</span>
+          <br />
+          one <span className="italic">word</span>
+          <br />
+          at a time
+        </h1>
+        <Button className="hero-cta" onClick={onBrowse}>
+          <span>View Blogs</span>
+          <div className="cta-icon">
+            <ArrowUpRight size={16} />
+          </div>
+        </Button>
+      </div>
+    </section>
+  )
+}
+
+export default Hero

@@ -1,0 +1,68 @@
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  cursor: pointer;
+  group: true;
+}
+
+.card-visual {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: #111;
+  position: relative;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-slow);
+}
+
+/* Subtle interactions */
+.blog-card:hover .placeholder-image {
+  transform: scale(1.05);
+}
+
+/* Minimalist geometric patterns for the placeholders */
+.pattern-0 {
+  background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
+}
+
+.pattern-1 {
+  background: linear-gradient(45deg, #000 25%, #111 25%, #111 50%, #000 50%, #000 75%, #111 75%, #111 100%);
+  background-size: 20px 20px;
+}
+
+.pattern-2 {
+  background: repeating-linear-gradient(90deg, #000, #000 10px, #1a1a1a 10px, #1a1a1a 20px);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--text-color);
+  line-height: 1.2;
+  transition: color var(--transition-normal);
+}
+
+.blog-card:hover .card-title {
+  color: #ccc;
+}

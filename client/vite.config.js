@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
+// Trigger restart
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {

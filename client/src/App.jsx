@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import BlogList from './components/BlogList';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Home from './pages/Home'
+import Blogs from './pages/Blogs'
+import './App.css'
 
 function App() {
-  const [view, setView] = useState('hero');
-  const [displayView, setDisplayView] = useState('hero');
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    if (view !== displayView) {
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setDisplayView(view);
-        setIsTransitioning(false);
-      }, 600); // Matches the slow transition duration
-      return () => clearTimeout(timer);
-    }
-  }, [view, displayView]);
-
   return (
-    <main className="app-main">
-      <div className={`view-container ${isTransitioning ? 'view-exit-active' : 'view-enter-active'}`}>
-        {displayView === 'hero' ? (
-          <Hero onViewBlogs={() => setView('blogs')} />
-        ) : (
-          <BlogList onBack={() => setView('hero')} />
-        )}
-      </div>
-    </main>
-  );
+    <BrowserRouter>
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
